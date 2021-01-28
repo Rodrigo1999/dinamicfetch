@@ -308,7 +308,7 @@ foi retornado no data.users. Além disso, digo que o model address deve se compo
 
 No terceiro parâmetro, temos `,fk_id_users` o primeiro valor (antes da virgula) não passo nada, ele se refere a get-users, mas get-users não precisa de uma key, pois ele é get, já o segundo valor (depois da vírgula) é o `fk_id_users`, é a chave que passo para dizer ao put-address com qual referência ele deve trabalhar para pesquiar na loja o endereço e substituir pelo novo.
 
-### Detalhe importante, aqui em cima eu disse "substituir pelo novo", o my-fetcher não interfere na sua loja, apenas usa os dados da store para fazer o tratamento necessário e lhe entregar a resposta em dispatch, você pode alterar os valores de sua loja em onSuccess. 
+**Detalhe importante, aqui em cima eu disse "substituir pelo novo", o my-fetcher não interfere na sua loja, apenas usa os dados da store para fazer o tratamento necessário e lhe entregar a resposta em dispatch, você pode alterar os valores de sua loja em onSuccess.**
 
 
 > Trabalhando com swr
