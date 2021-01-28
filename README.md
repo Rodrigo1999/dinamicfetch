@@ -204,9 +204,7 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
     */
 
 ```
-<br/>
-<br/>
-<br/>
+<hr/>
 
 > Usando com o método create
 ```js
@@ -258,9 +256,7 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
     //---todos esses parâmetros irão ser detalhados mais tarde.
 ```
 
-<br/>
-<br/>
-<br/>
+<hr/>
 
 > Explorando as utilidades
 ```js
@@ -276,9 +272,7 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
     //----$get, $post, $put, $remove é usado da mesma maneira que as funções listadas a cima.
 ```
 
-<br/>
-<br/>
-<br/>
+<hr/>
 
 > Trabalhando com mais de um model
 ```js
@@ -315,9 +309,7 @@ No terceiro parâmetro, temos `,fk_id_users` o primeiro valor (antes da virgula)
 
 **Detalhe importante, aqui em cima eu disse "substituir pelo novo", o my-fetcher não interfere na sua loja, apenas usa os dados da store para fazer o tratamento necessário e lhe entregar a resposta em dispatch, você pode alterar os valores de sua loja em onSuccess.**
 
-<br/>
-<br/>
-<br/>
+<hr/>
 
 > Trabalhando com swr
 ```js
