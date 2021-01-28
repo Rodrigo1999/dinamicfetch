@@ -6,7 +6,7 @@
 ## O que é o my-fetcher ?
 Muitas vezes fazemos nossas chamadas de api na mão, usando o axios ou o fetch diretamente. Tendo em vista isso, é meio cansativo configurar como os dados devem ser manipulados.
 
-É aí que entra o my-fetcher um buscador dinâmico para API Rest, tendo como base o swr e o axios, com ele você pode deixar mais fluido seu trabalho de salvar resultados em store e configurar requisições. Além disso, ele trás uma proposta de padronização de dados, na qual essa documentação recomenda dicas de como usar uma store, dicas estas que vou passar logo a diante.
+É aí que entra o my-fetcher, um buscador dinâmico para API Rest, tendo como base o swr e o axios, com ele você pode deixar mais fluido seu trabalho de salvar resultados em store e configurar requisições. Além disso, ele trás uma proposta de padronização de dados, na qual essa documentação recomenda dicas de como usar uma store e protocolos https, dicas estas que vou passar logo a diante.
 
 ## Que metodologia ele trás?
 
@@ -42,7 +42,7 @@ Certo, nos exemplos iremos trabalhar com o users, um model de usuários.
 Certo, esses são os 4 métodos que eu uso, existem outros, mas por enquanto a função utilitária de tratamento de dados do my-fetcher só trabalhará com esses 4, que é o suficiente.
 Obs: não quero dizer que o my-fetcher não faça requisições com outros métodos, falo aqui de uma função utilitária, logo mais falarei sobre ela.
 
-#### Vamos falar sobre a loja, eu costumo padronizar assim, isso vai ser importante para a manipulação de dados na store:
+#### Vamos falar sobre a loja (eu costumo padronizar assim, isso vai ser importante para a manipulação de dados na store):
 
 * **Chaves no plural**: Por exemplo "users", perceber-se que está no plural, então na minha store eu quero dizer que ele é um array, no exemplo a cima defini inicialmente `users: []`
 * **Chaves no singular**: Pode ser qualquer valor. Por exemplo "user" posso inicialmente colocar assim `user: {id:1, name:'Rodrigo'}`
@@ -248,6 +248,9 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
             /*
                 retorna o mesmo que onSuccess, a diferença é que esse evento é disparado quando usamos o my-fetcher como hook tendo como base o swr.
             */
+        },
+        params: {
+            /*-Parâmetros global que quero passar na url-*/
         }
     })
 
@@ -307,7 +310,7 @@ foi retornado no data.users. Além disso, digo que o model address deve se compo
 
 No terceiro parâmetro, temos `,fk_id_users` o primeiro valor (antes da virgula) não passo nada, ele se refere a get-users, mas get-users não precisa de uma key, pois ele é get, já o segundo valor (depois da vírgula) é o `fk_id_users`, é a chave que passo para dizer ao put-address com qual referência ele deve trabalhar para pesquiar na loja o endereço e substituir pelo novo.
 
-**Detalhe importante, aqui em cima eu disse "substituir pelo novo", o my-fetcher não interfere na sua loja, apenas usa os dados da store para fazer o tratamento necessário e lhe entregar a resposta em dispatch, você pode alterar os valores de sua loja em onSuccess.**
+**Detalhe importante, aqui em cima na última linha eu disse "substituir pelo novo", o my-fetcher não interfere na sua loja, apenas usa os dados da store para fazer o tratamento necessário e lhe entregar a resposta em dispatch, você pode alterar os valores de sua loja em onSuccess.**
 
 <hr/>
 

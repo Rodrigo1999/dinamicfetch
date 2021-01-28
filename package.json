@@ -1,6 +1,6 @@
 {
   "name": "my-fetcher",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Buscador dinâmico para API Rest, tendo como base o swr e o axios, com ele você pode deixar mais fluido seu trabalho de salvar dados em loja e configurar requisições",
   "main": "./dist/index.js",
   "scripts": {
@@ -23,7 +23,8 @@
     "buscar",
     "api",
     "react",
-    "react hooks",
+    "react",
+    "hooks",
     "swr",
     "axios",
     "fetcher",
