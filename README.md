@@ -205,8 +205,9 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
 
 ```
 
-> Usando com o método create
 
+
+> Usando com o método create
 ```js
     import {create} from 'my-fetcher';
 
@@ -214,9 +215,9 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
         swr:{/*-configurações do swr-*/},
         axios:{/*-configurações do axios-*/},
         store:Store, // Aqui eu passo a loja - opcional,
-        token:/*-pode ser o token passado quando um usuário estiver logado, isso irá ajudar o swr a diferenciar o cachê, já que ele trabalha com cache de requiições-*/,
+        token:/*-pode ser o token passado quando um usuário estiver logado, isso irá ajudar o swr a diferenciar o cachê, já que ele trabalha com cachê de requiições-*/,
         onStart(data){
-            // Chamado antes de uma determinada requisição ser executada
+            // Chamado antes de uma determinada requisição ser executada.
             /*
                 data retorna:
                 {
@@ -225,12 +226,12 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
                     model, // O modelo que está sendo passado como parâmetro para uma determinada requisição
                     body, // O corpo de uma determinada requisição
                     key, // O key que está sendo passado como parâmetro para uma determinada requisição
-                    config // As configurações que está sendo passado como parâmetro para uma determinada requisição
+                    config // As configurações que estão sendo passadas como parâmetro para uma determinada requisição
                 }
             */
         },
         onSuccess(data){
-            // Chamado quando uma requisição termina de ser executada
+            // Chamado quando uma requisição termina de ser executada.
             /*
                 data retorna:
                 {
@@ -256,8 +257,9 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
     //---todos esses parâmetros irão ser detalhados mais tarde.
 ```
 
-> Explorando as utilidades
 
+
+> Explorando as utilidades
 ```js
     import {create, fetch, $fetch, get, post, put, remove, $get, $post, $put, $remove} from 'my-fetcher'; //onde tem $ é quando quero usar o swr.
     //todas as funções a cima retorna uma promisse.
@@ -271,9 +273,9 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
     //----$get, $post, $put, $remove é usado da mesma maneira que as funções listadas a cima.
 ```
 
+
+
 > Trabalhando com mais de um model
-
-
 ```js
     fetch('put', 'https://host/api/usersinfos', 'get-users, put-address', {name:'Rua tal - número tal'}, ', fk_id_users').then(data=>{
         /*
@@ -304,5 +306,17 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
 Observe o `get-users, put-address` aqui eu digo que quero que o model users se comporte como um get, ou seja, o dispatch somente irá inserir os dados que
 foi retornado no data.users. Além disso, digo que o model address deve se comportar como um put, ou seja, no data.address retorno o endereço atualizado, conforme os valores que passei no body, e o dispatch o rescreve em dispatch.address.
 
-No terceiro parâmetro, temos `,fk_id_users` o primeiro valor (antes da virgula) não passo nada, ele se refere a get-users, mas get-users não precisa de uma key, pois ele é get já o segundo valor (depois da vírgula) é o `fk_id_users`, é a chave que passo para dizer ao put-address com qual referência ele deve trabalhar para pesquiar na loja o endereço e substituir pelo novo.
+No terceiro parâmetro, temos `,fk_id_users` o primeiro valor (antes da virgula) não passo nada, ele se refere a get-users, mas get-users não precisa de uma key, pois ele é get, já o segundo valor (depois da vírgula) é o `fk_id_users`, é a chave que passo para dizer ao put-address com qual referência ele deve trabalhar para pesquiar na loja o endereço e substituir pelo novo.
 
+### Detalhe importante, aqui em cima eu disse "substituir pelo novo", o my-fetcher não interfere na sua loja, apenas usa os dados da store para fazer o tratamento necessário e lhe entregar a resposta em dispatch, você pode alterar os valores de sua loja em onSuccess. 
+
+
+> Trabalhando com swr
+```js
+    let {data, error, isValidating, mutate} = $get('/users', 'users', {axios:{}, swr:{/*-configurações do swr-*/}});
+
+    //--para quem conhece o SWR, saberá que ele é um hook e que funciona trazendo esses dados mostrados a cima, a diferença é que aqui estou integrando com o my-fetcher
+```
+<hr/>
+
+Bom, por enquanto é isso, para você entender o quando o my-fetcher é útil, em breve irei fazer exemplos e até mesmo um vídeo explicando como posso usa-lo em minhas aplicações.
