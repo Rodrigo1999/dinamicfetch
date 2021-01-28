@@ -6,13 +6,13 @@
 ## O que é o my-fetcher ?
 Muitas vezes fazemos nossas chamadas de api na mão, usando o axios ou o fetch diretamente. Tendo em vista isso, é meio cansativo configurar como os dados devem ser manipulados.
 
-É aí que entra o my-fetcher um buscador dinâmico para API Rest, tendo como base o swr e o axios, com ele você pode deixar mais fluido seu trabalho de salvar resultados em store e configurar requisições. Além disso, ele trás uma proposta de padronização de dados, recomendando dicas de como usar uma store, dicas estas que vou passar logo a diante.
+É aí que entra o my-fetcher um buscador dinâmico para API Rest, tendo como base o swr e o axios, com ele você pode deixar mais fluido seu trabalho de salvar resultados em store e configurar requisições. Além disso, ele trás uma proposta de padronização de dados, na qual essa documentação recomenda dicas de como usar uma store, dicas estas que vou passar logo a diante.
 
 ## Que metodologia ele trás?
 
 Por enquanto, não vou falar tanto do my-fetcher, primeiro irei explicar como eu uso lojas em minhas aplicações e como uso os protocolos https, assim esse pacote no qual publiquei irá fazer mais sentido.
 
-Bem, para a store, irei usar o mobx, não se preocupe, ele é simples de entender é usado para estado global.
+Bem, para a store irei usar o mobx, não se preocupe, ele é simples de entender, é usado para estado global.
 Aqui vai um exemplo bem simples de store com mobx.
 
 ```js
@@ -30,7 +30,7 @@ Aqui vai um exemplo bem simples de store com mobx.
     export default store;
 ```
 
-Certo, nos exemplo iremos trabalhar com o users, um model de usuários.
+Certo, nos exemplos iremos trabalhar com o users, um model de usuários.
 
 #### Vou começar falando sobre os protocolos https. Eu costumo usa-los dessa maneira:
 
@@ -39,7 +39,7 @@ Certo, nos exemplo iremos trabalhar com o users, um model de usuários.
 * **Método PUT**: esse método eu uso para atualizar dados na minha API. Por exemplo, quero mudar alguma informação de um usuário, como telefone ou endereço.
 * **Método DELETE**: esse método eu uso para remove dados na minha API. Por exemplo, quero apagar um usuário do banco de dados.
 
-Certo, esses são os 4 métodos que eu uso, existem outros, mas por enquanto a função utilitária de tratamento de dados do my-fetcher só trabalhará com esses 4 que é o suficiente.
+Certo, esses são os 4 métodos que eu uso, existem outros, mas por enquanto a função utilitária de tratamento de dados do my-fetcher só trabalhará com esses 4, que é o suficiente.
 Obs: não quero dizer que o my-fetcher não faça requisições com outros métodos, falo aqui de uma função utilitária, logo mais falarei sobre ela.
 
 #### Vamos falar sobre a loja, eu costumo padronizar assim, isso vai ser importante para a manipulação de dados na store:
@@ -65,9 +65,10 @@ O my-fetcher trabalha com esses parâmetros:
         <model>: O modelo na loja na qual o my-fetcher irá tratar os dados.
         <body>: Corpo da requisição, dados para enviar para o servidor
         <key>: Usado quando o método é PUT, isso indica qual atributo devo pegar como referência para atualizar os dados.
-        config: Irei falar sobre isso mais na frente.
+        <config>: Irei falar sobre isso mais na frente.
     */
 ```
+<hr/>
 
 Para você entender como faço buscas em minhas APIs, iremos seguir esses passos: buscar usuários, inserir um novo usuário, editar um usuáro, excluir um usuário.
 
@@ -100,7 +101,8 @@ Primeiro eu envio um GET para buscar todos os usuários:
 <hr/>
 
 Ok, próximo passo, agora eu quero inserir um novo usuário, irei enviar uma requisição com esse body: `{name:'Paula'}`
-e eu também trago esse novo usuário inserido: `res.status(200).send({id:5, name:'Paula'})`.
+e eu também retorno esse novo usuário inserido: `res.status(200).send({id:5, name:'Paula'})`.
+Observe que uso o método POST quando quero inserir algo no banco.
 
 ```js 
     fetch('post', 'https://host/api/users', 'users', {name:'Paula'}).then(data=>{
@@ -108,7 +110,6 @@ e eu também trago esse novo usuário inserido: `res.status(200).send({id:5, nam
             data retorna:
             {
                 data:{id:5, name:'Paula'},
-
                 dispatch:{
                     users:[
                         {id:5, name:'Paula'}, //novo usuário aqui
@@ -124,6 +125,7 @@ e eu também trago esse novo usuário inserido: `res.status(200).send({id:5, nam
 ```
 <hr/>
 Ok, próximo passo, agora eu quero editar o nome do usuário de id 3, vou mudar de Aristóteles para Fabrício.
+Observe que uso o método PUT quando quero editar algo no banco.
 
 ```js 
     fetch('put', 'https://host/api/users', 'users', {userId:3, name:'Fabrício'}, 'id').then(data=>{
@@ -148,6 +150,7 @@ Observe que o dispatch pega o modelo users da loja e já trás os dados com o us
 <hr/>
 
 Ok, próximo passo, agora eu quero deletar o usuário de id 4, Sócrates.
+Observe que uso o método DELETE quando quero deletar algo no banco.
  
 ```js 
     fetch('delete', 'https://host/api/users/4', 'users', null, 'id').then(data=>{
@@ -167,7 +170,7 @@ Ok, próximo passo, agora eu quero deletar o usuário de id 4, Sócrates.
         */
     });
 ```
-Quando for o método DELETE sempre retorno um json {<key>:<value>} indicando a chave que vou usar como referência, passado no 5° parâmetro do fetch.
+Quando for o método DELETE sempre retorno um json {[key]:[value]} indicando a chave que vou usar como referência, passado no 5° parâmetro do fetch.
 Isso irá pegar o modelo users da loja, vai procurar o usuário de id 4 e irá remove-lo.
 <hr/>
 
