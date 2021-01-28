@@ -323,3 +323,5 @@ No terceiro parâmetro, temos `,fk_id_users` o primeiro valor (antes da virgula)
 <hr/>
 
 Bom, por enquanto é isso, para você entender o quando o my-fetcher é útil, em breve irei fazer exemplos e até mesmo um vídeo explicando como posso usa-lo em minhas aplicações.
+
+Recomendo você ver esses pacotes criados por mim também, estão no npm (dinamicform, my-fetcher)
