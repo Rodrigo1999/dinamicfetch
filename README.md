@@ -7,6 +7,8 @@
 **[DEMO](https://codesandbox.io/s/my-fetcher-ulvb6?file=/src/store.js)**
 Obs: ver o readme.md desse demo no codesandbox
 
+**[youtube](https://youtu.be/rKbiqS7i0Ak)**
+
 
 ## O que é o my-fetcher ?
 Muitas vezes fazemos nossas chamadas de api na mão, usando o axios ou o fetch diretamente. Tendo em vista isso, é meio cansativo configurar como os dados devem ser manipulados.
@@ -327,4 +329,5 @@ No terceiro parâmetro, temos `,fk_id_users` o primeiro valor (antes da virgula)
 ```
 <hr/>
 
-Bom, por enquanto é isso, para você entender o quando o my-fetcher é útil, em breve irei fazer exemplos e até mesmo um vídeo explicando como posso usa-lo em minhas aplicações.
+Bom, por enquanto é isso, a forma que você vai usa-lo vai depender de sua criatividade, recomendo sempre usar a função create para configurar de forma global sua aplicação,
+lá você pode configurar mensagens de alerta como mostra no demo, salvar os dados na store e o que você desejar fazer.
