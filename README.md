@@ -4,7 +4,7 @@
     npm install --save dinamicfetch
 ```
 
-**[DEMO](https://codesandbox.io/s/my-fetchergit-ulvb6?file=/src/store.js)**
+**[DEMO](https://codesandbox.io/s/my-fetcher-ulvb6?file=/src/store.js)**
 Obs: ver o readme.md desse demo no codesandbox
 
 **[youtube](https://youtu.be/rKbiqS7i0Ak)**
