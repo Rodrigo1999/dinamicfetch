@@ -1,6 +1,6 @@
 {
-  "name": "my-fetcher",
-  "version": "1.1.0",
+  "name": "dinamicfetch",
+  "version": "1.0.0",
   "description": "Buscador dinâmico para API Rest, tendo como base o swr e o axios, com ele você pode deixar mais fluido seu trabalho de salvar dados em loja e configurar requisições",
   "main": "./dist/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rodrigo1999/my-fetcher.git"
+    "url": "git+https://github.com/Rodrigo1999/dinamicfetch.git"
   },
   "keywords": [
     "fetch",
@@ -39,9 +39,9 @@
   "author": "Rodrigo Santos",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Rodrigo1999/my-fetcher/issues"
+    "url": "https://github.com/Rodrigo1999/dinamicfetch/issues"
   },
-  "homepage": "https://github.com/Rodrigo1999/my-fetcher#readme",
+  "homepage": "https://github.com/Rodrigo1999/dinamicfetch#readme",
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",

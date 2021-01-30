@@ -1,7 +1,7 @@
 ## Instalação
 
 ```bash
-    npm install --save my-fetcher
+    npm install --save dinamicfetch
 ```
 
 **[DEMO](https://codesandbox.io/s/my-fetcher-ulvb6?file=/src/store.js)**
@@ -11,14 +11,14 @@ Obs: ver o readme.md desse demo no codesandbox
 
 > Estou mudando o nome do pacote para dinamicfetch, todas as atualizaçõe serão voltadas para ele, vocês podem pesquisar no npm por esse nome
 
-## O que é o my-fetcher ?
+## O que é o dinamicfetch ?
 Muitas vezes fazemos nossas chamadas de api na mão, usando o axios ou o fetch diretamente. Tendo em vista isso, é meio cansativo configurar como os dados devem ser manipulados.
 
-É aí que entra o my-fetcher, um buscador dinâmico para API Rest, tendo como base o swr e o axios, com ele você pode deixar mais fluido seu trabalho de salvar resultados em store e configurar requisições. Além disso, ele trás uma proposta de padronização de dados, na qual essa documentação recomenda dicas de como usar uma store e protocolos https, dicas estas que vou passar logo a diante.
+É aí que entra o dinamicfetch, um buscador dinâmico para API Rest, tendo como base o swr e o axios, com ele você pode deixar mais fluido seu trabalho de salvar resultados em store e configurar requisições. Além disso, ele trás uma proposta de padronização de dados, na qual essa documentação recomenda dicas de como usar uma store e protocolos https, dicas estas que vou passar logo a diante.
 
 ## Que metodologia ele trás?
 
-Por enquanto, não vou falar tanto do my-fetcher, primeiro irei explicar como eu uso lojas em minhas aplicações e como uso os protocolos https, assim esse pacote no qual publiquei irá fazer mais sentido.
+Por enquanto, não vou falar tanto do dinamicfetch, primeiro irei explicar como eu uso lojas em minhas aplicações e como uso os protocolos https, assim esse pacote no qual publiquei irá fazer mais sentido.
 
 Bem, para a store irei usar o mobx, não se preocupe, ele é simples de entender, é usado para estado global.
 Aqui vai um exemplo bem simples de store com mobx.
@@ -47,8 +47,8 @@ Certo, nos exemplos iremos trabalhar com o users, um model de usuários.
 * **Método PUT**: esse método eu uso para atualizar dados na minha API. Por exemplo, quero mudar alguma informação de um usuário, como telefone ou endereço.
 * **Método DELETE**: esse método eu uso para remove dados na minha API. Por exemplo, quero apagar um usuário do banco de dados.
 
-Certo, esses são os 4 métodos que eu uso, existem outros, mas por enquanto a função utilitária de tratamento de dados do my-fetcher só trabalhará com esses 4, que é o suficiente.
-Obs: não quero dizer que o my-fetcher não faça requisições com outros métodos, falo aqui de uma função utilitária, logo mais falarei sobre ela.
+Certo, esses são os 4 métodos que eu uso, existem outros, mas por enquanto a função utilitária de tratamento de dados do dinamicfetch só trabalhará com esses 4, que é o suficiente.
+Obs: não quero dizer que o dinamicfetch não faça requisições com outros métodos, falo aqui de uma função utilitária, logo mais falarei sobre ela.
 
 #### Vamos falar sobre a loja (eu costumo padronizar assim, isso vai ser importante para a manipulação de dados na store):
 
@@ -59,18 +59,18 @@ Obs: não quero dizer que o my-fetcher não faça requisições com outros méto
 
 #### Vamos começar a falar o porquê de tudo isso.
 
-Não vou entrar a fundo no my-fetcher agora, mas vou mostrar aqui um casos básico de uso para você entender a metodologia. Os valores retornados na promisse não são "exatamente" o que o my-fetcher irá trazer
+Não vou entrar a fundo no dinamicfetch agora, mas vou mostrar aqui um casos básico de uso para você entender a metodologia. Os valores retornados na promisse não são "exatamente" o que o dinamicfetch irá trazer
 
-O my-fetcher trabalha com esses parâmetros:
+O dinamicfetch trabalha com esses parâmetros:
 
 ```js
-    import {fetch} from 'my-fetcher';
+    import {fetch} from 'dinamicfetch';
     fetch('<method>', '<url>', '<model>', '<body>', '<key>', '<config>'); //promisse
 
     /*
         <method>: Poder ser por exemplo, GET, POST, PUT, DELETE
         <url>: A rota da api
-        <model>: O modelo na loja na qual o my-fetcher irá tratar os dados.
+        <model>: O modelo na loja na qual o dinamicfetch irá tratar os dados.
         <body>: Corpo da requisição, dados para enviar para o servidor
         <key>: Usado quando o método é PUT, isso indica qual atributo devo pegar como referência para atualizar os dados.
         <config>: Irei falar sobre isso mais na frente.
@@ -185,7 +185,7 @@ Isso irá pegar o modelo users da loja, vai procurar o usuário de id 4 e irá r
 ### Recapitularizando
 
 Aqui em cima lhe mostrei como padronizo meus dados de api para GET, POST, PUT e DELETE e o que o fetch faz com os dados para cada método.
-Agora daqui para baixo irei explicar como usar o my-fetcher.
+Agora daqui para baixo irei explicar como usar o dinamicfetch.
 
 
 ## Como usar?
@@ -193,13 +193,13 @@ Agora daqui para baixo irei explicar como usar o my-fetcher.
 Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
 
 ```js 
-    import {fetch} from 'my-fetcher';
+    import {fetch} from 'dinamicfetch';
     fetch('<method>', '<url>', '<model>', '<body>', '<key>', '<config>'); //promisse
 
     /*
         <method>: Poder ser por exemplo, GET, POST, PUT, DELETE
         <url>: A rota da api
-        <model>: O modelo na loja, cujo o my-fetcher irá tratar os dados.
+        <model>: O modelo na loja, cujo o dinamicfetch irá tratar os dados.
         <body>: Corpo da requisição, dados para enviar para o servidor
         <key>: Usado quando o método é PUT, isso indica qual atributo devo pegar como referência para atualizar os dados na loja.
         <config>: {
@@ -216,7 +216,7 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
 
 > Usando com o método create
 ```js
-    import {create} from 'my-fetcher';
+    import {create} from 'dinamicfetch';
 
     let config = create({
         swr:{/*-configurações do swr-*/},
@@ -254,7 +254,7 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
         },
         $onSuccess(data){
             /*
-                retorna o mesmo que onSuccess, a diferença é que esse evento é disparado quando usamos o my-fetcher como hook tendo como base o swr.
+                retorna o mesmo que onSuccess, a diferença é que esse evento é disparado quando usamos o dinamicfetch como hook tendo como base o swr.
             */
         },
         params: {
@@ -271,7 +271,7 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
 
 > Explorando as utilidades
 ```js
-    import {create, fetch, $fetch, get, post, put, remove, $get, $post, $put, $remove} from 'my-fetcher'; //onde tem $ é quando quero usar o swr.
+    import {create, fetch, $fetch, get, post, put, remove, $get, $post, $put, $remove} from 'dinamicfetch'; //onde tem $ é quando quero usar o swr.
     //todas as funções a cima retorna uma promisse.
 
     //Essas aqui servem para facilitar sua vida, elas só aceitam parâmetros necessários, ao contrário de fetch, $fetch.
@@ -318,7 +318,7 @@ foi retornado no data.users. Além disso, digo que o model address deve se compo
 
 No terceiro parâmetro, temos `,fk_id_users` o primeiro valor (antes da virgula) não passo nada, ele se refere a get-users, mas get-users não precisa de uma key, pois ele é get, já o segundo valor (depois da vírgula) é o `fk_id_users`, é a chave que passo para dizer ao put-address com qual referência ele deve trabalhar para pesquiar na loja o endereço e substituir pelo novo.
 
-**Detalhe importante, aqui em cima na última linha eu disse "substituir pelo novo", o my-fetcher não interfere na sua loja, apenas usa os dados da store para fazer o tratamento necessário e lhe entregar a resposta em dispatch, você pode alterar os valores de sua loja em onSuccess.**
+**Detalhe importante, aqui em cima na última linha eu disse "substituir pelo novo", o dinamicfetch não interfere na sua loja, apenas usa os dados da store para fazer o tratamento necessário e lhe entregar a resposta em dispatch, você pode alterar os valores de sua loja em onSuccess.**
 
 <hr/>
 
@@ -326,7 +326,7 @@ No terceiro parâmetro, temos `,fk_id_users` o primeiro valor (antes da virgula)
 ```js
     let {data, error, isValidating, mutate} = $get('/users', 'users', {axios:{}, swr:{/*-configurações do swr-*/}});
 
-    //--para quem conhece o SWR, saberá que ele é um hook e que funciona trazendo esses dados mostrados a cima, a diferença é que aqui estou integrando com o my-fetcher
+    //--para quem conhece o SWR, saberá que ele é um hook e que funciona trazendo esses dados mostrados a cima, a diferença é que aqui estou integrando com o dinamicfetch
 ```
 <hr/>
 
