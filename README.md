@@ -9,6 +9,7 @@ Obs: ver o readme.md desse demo no codesandbox
 
 **[youtube](https://youtu.be/rKbiqS7i0Ak)**
 
+> Estou mudando o nome do pacote para dinamicfetch, todas as atualizaçõe serão voltadas para ele, vocês podem pesquisar no npm por esse nome
 
 ## O que é o my-fetcher ?
 Muitas vezes fazemos nossas chamadas de api na mão, usando o axios ou o fetch diretamente. Tendo em vista isso, é meio cansativo configurar como os dados devem ser manipulados.
