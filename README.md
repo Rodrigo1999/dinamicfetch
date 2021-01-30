@@ -9,6 +9,7 @@ Obs: ver o readme.md desse demo no codesandbox
 
 **[youtube](https://youtu.be/rKbiqS7i0Ak)**
 
+
 ## O que é o dinamicfetch ?
 Muitas vezes fazemos nossas chamadas de api na mão, usando o axios ou o fetch diretamente. Tendo em vista isso, é meio cansativo configurar como os dados devem ser manipulados.
 
@@ -28,8 +29,10 @@ Aqui vai um exemplo bem simples de store com mobx.
         users:[]
     });
 
-    const update = action((key, value) => {
-        store[key] = value;
+    const update = action((data) => {
+        Object.keys(data).forEach((e) => {
+            store[e] = data[e];
+        });
     });
 
     export {update};
