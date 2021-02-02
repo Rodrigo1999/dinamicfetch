@@ -54,23 +54,35 @@ var expo = {
     var body = arguments.length > 3 ? arguments[3] : undefined;
     var key = arguments.length > 4 ? arguments[4] : undefined;
     var config = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
+    var isSwr = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+
+    if (typeof method != 'string') {
+      url = method.url;
+      model = method.model;
+      body = method.body;
+      key = method.key;
+      config = method.config;
+      method = method.method;
+    }
+
     this === null || this === void 0 ? void 0 : (_this$onStart = this.onStart) === null || _this$onStart === void 0 ? void 0 : _this$onStart.call(this, {
       method: method,
       url: url,
       model: model,
       body: body,
       key: key,
-      config: config
+      config: config,
+      isSwr: isSwr
     });
     return new Promise(function (resolve, reject) {
-      var _this$axios;
+      var _config, _this$axios, _config2;
 
       (0, _axios["default"])(_objectSpread(_objectSpread(_objectSpread({
         url: url,
         method: method,
         data: body
-      }, _this === null || _this === void 0 ? void 0 : _this.axios), config === null || config === void 0 ? void 0 : config.axios), {}, {
-        params: _objectSpread(_objectSpread({}, _this === null || _this === void 0 ? void 0 : (_this$axios = _this.axios) === null || _this$axios === void 0 ? void 0 : _this$axios.params), config === null || config === void 0 ? void 0 : config.params)
+      }, _this === null || _this === void 0 ? void 0 : _this.axios), (_config = config) === null || _config === void 0 ? void 0 : _config.axios), {}, {
+        params: _objectSpread(_objectSpread({}, _this === null || _this === void 0 ? void 0 : (_this$axios = _this.axios) === null || _this$axios === void 0 ? void 0 : _this$axios.params), (_config2 = config) === null || _config2 === void 0 ? void 0 : _config2.params)
       })).then(function (result) {
         var _this$onSuccess;
 
@@ -108,12 +120,14 @@ var expo = {
         _this === null || _this === void 0 ? void 0 : (_this$onSuccess = _this.onSuccess) === null || _this$onSuccess === void 0 ? void 0 : _this$onSuccess.call(_this, _objectSpread(_objectSpread({}, result), {}, {
           model: model,
           key: key,
-          dispatch: _dispatch
+          dispatch: _dispatch,
+          isSwr: isSwr
         }));
         resolve(_objectSpread(_objectSpread({}, result), {}, {
           model: model,
           key: key,
-          dispatch: _dispatch
+          dispatch: _dispatch,
+          isSwr: isSwr
         }));
       })["catch"](function (error) {
         var _this$onError;
@@ -125,6 +139,7 @@ var expo = {
   },
   $fetch: function $fetch() {
     var _this2 = this,
+        _config3,
         _this$$onSuccess;
 
     var method = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
@@ -134,9 +149,18 @@ var expo = {
     var key = arguments.length > 4 ? arguments[4] : undefined;
     var config = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
 
+    if (typeof method != 'string') {
+      target = method.url;
+      model = method.model;
+      body = method.body;
+      key = method.key;
+      config = method.config;
+      method = method.method;
+    }
+
     var _useSWR = (0, _swr["default"])([target, this === null || this === void 0 ? void 0 : this.token], function (url) {
-      return expo.fetch.call(_this2, method, url, model, body, key, config);
-    }, _objectSpread(_objectSpread({}, this === null || this === void 0 ? void 0 : this.swr), config === null || config === void 0 ? void 0 : config.swr)),
+      return expo.fetch.call(_this2, method, url, model, body, key, config, true);
+    }, _objectSpread(_objectSpread({}, this === null || this === void 0 ? void 0 : this.swr), (_config3 = config) === null || _config3 === void 0 ? void 0 : _config3.swr)),
         data = _useSWR.data,
         error = _useSWR.error,
         isValidating = _useSWR.isValidating,

@@ -1,6 +1,6 @@
 {
   "name": "dinamicfetch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Buscador dinâmico para API Rest, tendo como base o swr e o axios, com ele você pode deixar mais fluido seu trabalho de salvar dados em loja e configurar requisições",
   "main": "./dist/index.js",
   "scripts": {

@@ -13,14 +13,23 @@ let expo = {
             return obj;
         }, {})
     },
-    fetch(method='', url, model, body, key, config={}){
+    fetch(method='', url, model, body, key, config={}, isSwr=false){
+        if(typeof method != 'string'){
+            url = method.url;
+            model = method.model;
+            body = method.body;
+            key = method.key;
+            config = method.config;
+            method = method.method;
+        }
         this?.onStart?.({
             method,
             url,
             model,
             body,
             key,
-            config
+            config,
+            isSwr
         });
         return new Promise((resolve, reject) => {
             axios({
@@ -62,14 +71,16 @@ let expo = {
                     ...result, 
                     model, 
                     key, 
-                    dispatch:_dispatch
+                    dispatch:_dispatch,
+                    isSwr
                 });
 
                 resolve({
                     ...result, 
                     model, 
                     key,
-                    dispatch:_dispatch
+                    dispatch:_dispatch,
+                    isSwr
                 });
             }).catch((error) => {
     
@@ -79,7 +90,15 @@ let expo = {
         });
     },
     $fetch(method='', target, model, body, key, config={}){
-        let {data, error, isValidating, mutate} = useSWR([target, this?.token], url => expo.fetch.call(this, method, url, model, body, key, config), {
+        if(typeof method != 'string'){
+            target = method.url;
+            model = method.model;
+            body = method.body;
+            key = method.key;
+            config = method.config;
+            method = method.method;
+        }
+        let {data, error, isValidating, mutate} = useSWR([target, this?.token], url => expo.fetch.call(this, method, url, model, body, key, config, true), {
             /* revalidateOnReconnect:true,
             shouldRetryOnError:true,
             errorRetryCount:10, */
@@ -92,7 +111,6 @@ let expo = {
         return {data, error, isValidating, mutate};
     },
     get(target, model, config={}){
-        
         return expo.fetch.call(this, 'get', target, model, null, null, config)
     },
     post(target, model, body, config={}){

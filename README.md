@@ -212,6 +212,15 @@ Primeiramente irei mostrar a função genérica, não vamos focar no swr ainda.
         }
     */
 
+   /*
+    <method> também pode ser passado como um json {
+        method:...,
+        url:...,
+        model:...,
+        ...
+    }
+   */
+
 ```
 <hr/>
 
