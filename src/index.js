@@ -67,14 +67,16 @@ let expo = {
                     }, {});
                 }
 
-                this?.onSuccess?.({
-                    ...result, 
-                    model, 
-                    key, 
-                    dispatch:_dispatch,
-                    isSwr
-                });
-
+                if(!isSwr){
+                    this?.onSuccess?.({
+                        ...result, 
+                        model, 
+                        key, 
+                        dispatch:_dispatch,
+                        isSwr
+                    });
+                }
+                
                 resolve({
                     ...result, 
                     model, 
