@@ -40,6 +40,8 @@ let expo = {
                 ...config?.axios,
                 params:{...this?.axios?.params, ...config?.params}
             }).then(result=>{
+
+                result.config = {...result.config, ...config};
                
                 let _dispatch = {};
                 if(model && this?.store){
@@ -85,9 +87,19 @@ let expo = {
                     isSwr
                 });
             }).catch((error) => {
-    
-                this?.onError?.(error);
-                reject(error);
+
+                let ret = {
+                    method,
+                    url,
+                    model,
+                    body,
+                    key,
+                    config,
+                    isSwr,
+                    error
+                }
+                this?.onError?.(ret);
+                reject(ret);
             });
         });
     },
