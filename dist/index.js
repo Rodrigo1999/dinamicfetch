@@ -84,8 +84,7 @@ var expo = {
       }, _this === null || _this === void 0 ? void 0 : _this.axios), (_config = config) === null || _config === void 0 ? void 0 : _config.axios), {}, {
         params: _objectSpread(_objectSpread({}, _this === null || _this === void 0 ? void 0 : (_this$axios = _this.axios) === null || _this$axios === void 0 ? void 0 : _this$axios.params), (_config2 = config) === null || _config2 === void 0 ? void 0 : _config2.params)
       })).then(function (result) {
-        var _this$onSuccess;
-
+        result.config = _objectSpread(_objectSpread({}, result.config), config);
         var _dispatch = {};
 
         if (model && _this !== null && _this !== void 0 && _this.store) {
@@ -117,12 +116,17 @@ var expo = {
           }, {});
         }
 
-        _this === null || _this === void 0 ? void 0 : (_this$onSuccess = _this.onSuccess) === null || _this$onSuccess === void 0 ? void 0 : _this$onSuccess.call(_this, _objectSpread(_objectSpread({}, result), {}, {
-          model: model,
-          key: key,
-          dispatch: _dispatch,
-          isSwr: isSwr
-        }));
+        if (!isSwr) {
+          var _this$onSuccess;
+
+          _this === null || _this === void 0 ? void 0 : (_this$onSuccess = _this.onSuccess) === null || _this$onSuccess === void 0 ? void 0 : _this$onSuccess.call(_this, _objectSpread(_objectSpread({}, result), {}, {
+            model: model,
+            key: key,
+            dispatch: _dispatch,
+            isSwr: isSwr
+          }));
+        }
+
         resolve(_objectSpread(_objectSpread({}, result), {}, {
           model: model,
           key: key,
@@ -132,8 +136,18 @@ var expo = {
       })["catch"](function (error) {
         var _this$onError;
 
-        _this === null || _this === void 0 ? void 0 : (_this$onError = _this.onError) === null || _this$onError === void 0 ? void 0 : _this$onError.call(_this, error);
-        reject(error);
+        var ret = {
+          method: method,
+          url: url,
+          model: model,
+          body: body,
+          key: key,
+          config: config,
+          isSwr: isSwr,
+          error: error
+        };
+        _this === null || _this === void 0 ? void 0 : (_this$onError = _this.onError) === null || _this$onError === void 0 ? void 0 : _this$onError.call(_this, ret);
+        reject(ret);
       });
     });
   },
