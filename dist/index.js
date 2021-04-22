@@ -11,7 +11,7 @@ var _swr = _interopRequireDefault(require("swr"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _dispatch2 = _interopRequireDefault(require("./dispatch"));
+var _shaper2 = _interopRequireDefault(require("./shaper"));
 
 var _utils = require("./utils");
 
@@ -85,7 +85,7 @@ var expo = {
         params: _objectSpread(_objectSpread({}, _this === null || _this === void 0 ? void 0 : (_this$axios = _this.axios) === null || _this$axios === void 0 ? void 0 : _this$axios.params), (_config2 = config) === null || _config2 === void 0 ? void 0 : _config2.params)
       })).then(function (result) {
         result.config = _objectSpread(_objectSpread({}, result.config), config);
-        var _dispatch = {};
+        var _shaper = {};
 
         if (model && _this !== null && _this !== void 0 && _this.store) {
           var _models = (model || '').split(',').map(function (e) {
@@ -96,7 +96,7 @@ var expo = {
             return e.trim();
           });
 
-          _dispatch = _models.reduce(function (obj, e, i) {
+          _shaper = _models.reduce(function (obj, e, i) {
             var _method = (e || '').split('-')[0];
             var model = (e || '').split('-')[1];
 
@@ -105,7 +105,7 @@ var expo = {
               _method = method;
             }
 
-            obj[model] = (0, _dispatch2["default"])({
+            obj[model] = (0, _shaper2["default"])({
               method: _method,
               key: _key[i],
               model: model,
@@ -122,7 +122,7 @@ var expo = {
           _this === null || _this === void 0 ? void 0 : (_this$onSuccess = _this.onSuccess) === null || _this$onSuccess === void 0 ? void 0 : _this$onSuccess.call(_this, _objectSpread(_objectSpread({}, result), {}, {
             model: model,
             key: key,
-            dispatch: _dispatch,
+            shaper: _shaper,
             isSwr: isSwr
           }));
         }
@@ -130,7 +130,7 @@ var expo = {
         resolve(_objectSpread(_objectSpread({}, result), {}, {
           model: model,
           key: key,
-          dispatch: _dispatch,
+          shaper: _shaper,
           isSwr: isSwr
         }));
       })["catch"](function (error) {

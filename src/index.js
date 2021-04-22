@@ -1,7 +1,7 @@
 import React from 'react'
 import useSWR from 'swr';
 import axios from 'axios';
-import dispatch from './dispatch';
+import shaper from './shaper';
 import {tryData} from './utils';
 
 let expo = {
@@ -43,12 +43,12 @@ let expo = {
 
                 result.config = {...result.config, ...config};
                
-                let _dispatch = {};
+                let _shaper = {};
                 if(model && this?.store){
                     let _models = (model||'').split(',').map(e => e.trim());
                     let _key = (key||'').split(',').map(e => e.trim());
 
-                    _dispatch = _models.reduce((obj, e, i)=>{
+                    _shaper = _models.reduce((obj, e, i)=>{
                         
                         let _method = (e||'').split('-')[0];
                         let model = (e||'').split('-')[1];
@@ -58,7 +58,7 @@ let expo = {
                             _method = method;
                         }
                         
-                        obj[model] = dispatch({
+                        obj[model] = shaper({
                             method:_method, 
                             key:_key[i], 
                             model, 
@@ -74,7 +74,7 @@ let expo = {
                         ...result, 
                         model, 
                         key, 
-                        dispatch:_dispatch,
+                        shaper:_shaper,
                         isSwr
                     });
                 }
@@ -83,7 +83,7 @@ let expo = {
                     ...result, 
                     model, 
                     key,
-                    dispatch:_dispatch,
+                    shaper:_shaper,
                     isSwr
                 });
             }).catch((error) => {
